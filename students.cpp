@@ -162,6 +162,15 @@ void Students::add(Student student)
     endInsertRows();
 }
 
+void Students::addInPose(Student student, int index)
+{
+    beginInsertRows(QModelIndex(),
+                          size(),
+                          size());
+    mStudents.insert(mStudents.begin() + index, student);
+    endInsertRows();
+}
+
 Student &Students::returnStudent(int index) {
     return mStudents[index];
 }

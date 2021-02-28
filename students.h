@@ -24,6 +24,7 @@ public:
     void save();
     void load();
     void add(Student student);
+    void addInPose(Student student, int index);
     void edit(QModelIndex index, QString s1, QString s2, QString s3, QString s4, QString s5, QString s6);
 private:
     std::vector<Student> mStudents;

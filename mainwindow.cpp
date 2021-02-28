@@ -68,12 +68,17 @@ void MainWindow::on_deleteStudent_clicked()
 }
 
 void MainWindow::on_editStudent_clicked()
-{
+{   
     AddNewStudentsDialog addNewStudentDialog(this);
 
     addNewStudentDialog.setWindowTitle(tr("Editing a note"));
 
     Student student;
+
+    QModelIndex index = ui->studentsTable->currentIndex();
+
+    student = mStudents[index.row()];
+
 
 }
 
@@ -111,6 +116,6 @@ void MainWindow::on_talkingTo_clicked()
             fired->exec();
         }
         else
-            mStudents.add(student);
+            mStudents.addInPose(student, index.row());
     }
 }
