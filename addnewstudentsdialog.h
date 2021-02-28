@@ -20,8 +20,6 @@ public:
 
     void setStudent(Student* newStudent);
 
-    void edit(QString s1, QString s2, QString s3, QString s4, QString s5, QString s6);
-
 private slots:
     void on_buttonBox_accepted();
 

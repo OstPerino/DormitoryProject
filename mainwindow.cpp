@@ -10,9 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->studentsTable->setModel(&mStudents);
 
+    //this->accountDialog = accountDialog;
+
     this->setFixedSize(946, 406);
 
     this->setWindowTitle("Общежитие");
+
+    //parent->hide();
+
+    //int res = accountDialog->exec();
+
+    //if (res == QDialog::Accepted)
+        //this->show();
 }
 
 MainWindow::~MainWindow()
@@ -65,21 +74,6 @@ void MainWindow::on_deleteStudent_clicked()
             mStudents.erase(*it);
         }
     }
-}
-
-void MainWindow::on_editStudent_clicked()
-{   
-    AddNewStudentsDialog addNewStudentDialog(this);
-
-    addNewStudentDialog.setWindowTitle(tr("Editing a note"));
-
-    Student student;
-
-    QModelIndex index = ui->studentsTable->currentIndex();
-
-    student = mStudents[index.row()];
-
-
 }
 
 void MainWindow::on_talkingTo_clicked()

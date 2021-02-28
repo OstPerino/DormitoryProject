@@ -4,6 +4,7 @@
 #include "student.h"
 #include "students.h"
 #include "addnewstudentsdialog.h"
+#include "accountdialog.h"
 
 #include <QMainWindow>
 #include <QMessageBox>
@@ -31,12 +32,11 @@ private slots:
 
     void on_deleteStudent_clicked();
 
-    void on_editStudent_clicked();
-
     void on_talkingTo_clicked();
 
 private:
     Ui::MainWindow *ui;
+    AccountDialog *accountDialog;
     Students mStudents;
 };
 #endif // MAINWINDOW_H

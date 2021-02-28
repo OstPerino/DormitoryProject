@@ -49,13 +49,3 @@ void AddNewStudentsDialog::on_buttonBox_rejected()
 {
     reject();
 }
-
-void AddNewStudentsDialog::edit(QString s1, QString s2, QString s3, QString s4, QString s5, QString s6)
-{
-    ui->nameEdit->setText(s1);
-    ui->surnameEdit->setText(s2);
-    ui->roomEdit->setText(s3);
-    ui->universityEdit->setText(s4);
-    ui->birthEdit->setText(s5);
-    ui->groupEdit->setText(s6);
-}
