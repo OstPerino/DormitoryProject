@@ -25,6 +25,7 @@ public:
     void setStrike(const int &strike);
     friend QDataStream &operator >>(QDataStream &ist, Student &student);
     friend QDataStream &operator <<(QDataStream &ost, const Student &student);
+    // Потоковый ввод вывод, перегрузка операторов
 private:
     QString mName, mSurname, mGroupNumber,
             mRoom, mUniversity, mBirthDate;
