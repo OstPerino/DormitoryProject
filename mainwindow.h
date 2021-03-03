@@ -24,6 +24,7 @@ public:
 
     ~MainWindow();
 
+    //! Методы для хранения данных
     void saveData();
     void loadData();
 
@@ -36,7 +37,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    //! Указатель на окно авторизации
     AccountDialog *accountDialog;
+    //! Вектор для хранения студентов
     Students mStudents;
 };
 #endif // MAINWINDOW_H

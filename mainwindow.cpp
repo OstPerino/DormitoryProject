@@ -8,10 +8,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //! Связь между таблицей и вектором студентов
     ui->studentsTable->setModel(&mStudents);
 
-    //this->setFixedSize(990, 446);
+    //! Фиксированный размер главного окна
+    this->setFixedSize(990, 474);
 
+    //! Название главного окна
     this->setWindowTitle("Общежитие");
 
 }
@@ -33,20 +36,24 @@ void MainWindow::loadData()
 
 void MainWindow::on_addStudent_clicked()
 {
+    //! Создание нового студента
     int res;
     Student newStudent;
 
+    //! Окно добавление и передача пустого студента для заполнения
     AddNewStudentsDialog newStudentDialog(this);
     newStudentDialog.setStudent(&newStudent);
 
     res = newStudentDialog.exec();
 
+    //! Добавление студента в вектор
     if (res == QDialog::Accepted)
         mStudents.add(newStudent);
 }
 
 void MainWindow::on_deleteStudent_clicked()
 {
+    //! Сообщение предупреждение об удалении студента
     int ask = QMessageBox::question(this,
                                       QString("Warning"),
                                       QString("Вы действительно хотите выселить студента?"),
@@ -55,6 +62,7 @@ void MainWindow::on_deleteStudent_clicked()
     {
         std::set<int> rows;
         {
+            //! Вычленение индекса студента
             QModelIndexList idc = ui->studentsTable->selectionModel()->selectedRows();
 
             for (const auto &i : idc)
@@ -62,6 +70,7 @@ void MainWindow::on_deleteStudent_clicked()
                 rows.insert(i.row());
             }
         }
+        //! Удаление по указателю
         for (auto it = rows.rbegin(); it != rows.rend(); ++it){
             mStudents.erase(*it);
         }
@@ -70,6 +79,7 @@ void MainWindow::on_deleteStudent_clicked()
 
 void MainWindow::on_talkingTo_clicked()
 {
+    //! Предупреждение при выговоре
     QMessageBox *message = new QMessageBox();
     Student student;
 
@@ -81,6 +91,10 @@ void MainWindow::on_talkingTo_clicked()
 
     int res = message->exec();
 
+    //! Создание буферного студента, которуму будет
+    //! выдан выговор, а также замена его местами
+    //! и удаление прежнего, для изменения параметра
+    //! mStrikes
     if (res == QMessageBox::Yes)
     {
         QModelIndex index = ui->studentsTable->currentIndex();
@@ -96,7 +110,7 @@ void MainWindow::on_talkingTo_clicked()
         {
             QMessageBox *fired = new QMessageBox();
             fired->setWindowTitle("Информация");
-            fired->setText("Студент имеет ключевое количество выговор. Студент выселен");
+            fired->setText("Студент имеет максимальное количество выговор. Студент выселен");
             fired->setIcon(QMessageBox::Information);
             fired->addButton(QMessageBox::Yes);
             fired->exec();

@@ -89,6 +89,7 @@ int Students::size()
 
 void Students::erase(int idx)
 {
+    //! Удаление из вектора
     beginRemoveRows(QModelIndex(),
                     idx,
                     idx
@@ -99,6 +100,7 @@ void Students::erase(int idx)
 
 void Students::save()
 {
+    //! Сохранение в файл
     QFile file("StudentsBase.bin");
 
     file.open(QIODevice::WriteOnly);
@@ -115,6 +117,7 @@ void Students::save()
 
 void Students::load()
 {
+    //! Выгрузка из файла
     QFile file("StudentsBase.bin");
 
     file.open(QIODevice::ReadOnly);
@@ -134,6 +137,7 @@ void Students::load()
 
 void Students::add(Student student)
 {
+    //! Добавление студента в конец вектора
     beginInsertRows(QModelIndex(),
                            size(),
                            size());
@@ -143,23 +147,10 @@ void Students::add(Student student)
 
 void Students::addInPose(Student student, int index)
 {
+    //! Добавление в определенную позицию
     beginInsertRows(QModelIndex(),
                           size(),
                           size());
     mStudents.insert(mStudents.begin() + index, student);
     endInsertRows();
-}
-
-Student &Students::returnStudent(int index) {
-    return mStudents[index];
-}
-
-void Students::edit(QModelIndex index, QString s1, QString s2, QString s3, QString s4, QString s5, QString s6)
-{
-    mStudents[index.row()].setName(s1);
-    mStudents[index.row()].setSurname(s2);
-    mStudents[index.row()].setRoom(s3);
-    mStudents[index.row()].setGroupNumber(s4);
-    mStudents[index.row()].setUniversity(s5);
-    mStudents[index.row()].setBirthDate(s6);
 }

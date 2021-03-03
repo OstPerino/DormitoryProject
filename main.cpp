@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    //! Установка стилей
     qApp->setStyleSheet("* {font-family: century gothic; font-size: 20px;}"
                         "QDialog {background-color: #252525; color: 64dfdf;}"
                         "QMainWindow {background-color: #252525}"
@@ -19,11 +20,15 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     AccountDialog authorisation;
+
     int res = authorisation.exec();
     w.hide();
+
+    //! Проверка авторизации
     if (res != QDialog::Accepted)
         w.hide();
     else
         w.show();
+
     return a.exec();
 }

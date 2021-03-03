@@ -18,6 +18,7 @@ public:
     explicit AddNewStudentsDialog(QWidget *parent = nullptr);
     ~AddNewStudentsDialog();
 
+    //! Сеттер для студента
     void setStudent(Student* newStudent);
 
 private slots:
@@ -26,6 +27,7 @@ private slots:
     void on_buttonBox_rejected();
 
 private:
+    //! Указатель на нового студента
     Ui::AddNewStudentsDialog *ui;
     Student *newStudent;
 };

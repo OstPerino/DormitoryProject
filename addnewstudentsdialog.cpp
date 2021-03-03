@@ -3,6 +3,7 @@
 
 #include <QRegExpValidator>
 
+//! Пространство символов для валидатора
 #define NAME_SURNAME_RX "^[А-Я][а-я]+$"
 #define ROOM_RX "^\\w{5,20}$"
 
@@ -12,12 +13,15 @@ AddNewStudentsDialog::AddNewStudentsDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //! Создание объекта валидации
     QRegExp rxName(NAME_SURNAME_RX);
     QRegExp rxRoom(ROOM_RX);
 
+    //! Создание валидатора
     QRegExpValidator *nameValidator = new QRegExpValidator(rxName, this);
     QRegExpValidator *roomValidator = new QRegExpValidator(rxRoom, this);
 
+    //! Установка валидации для полей: имя, фамилия, комната
     ui->nameEdit->setValidator(nameValidator);
     ui->surnameEdit->setValidator(nameValidator);
     ui->roomEdit->setValidator(roomValidator);
@@ -35,6 +39,7 @@ void AddNewStudentsDialog::setStudent(Student *newStudent)
 
 void AddNewStudentsDialog::on_buttonBox_accepted()
 {
+    //! Заполнение парамтеров нового студента
     newStudent->setName(ui->nameEdit->text());
     newStudent->setSurname(ui->surnameEdit->text());
     newStudent->setRoom(ui->roomEdit->text());
@@ -42,6 +47,7 @@ void AddNewStudentsDialog::on_buttonBox_accepted()
     newStudent->setBirthDate(ui->birthEdit->text());
     newStudent->setUniversity(ui->universityEdit->text());
 
+    //! Проверка полей на пустоту
     if (ui->nameEdit->text() == "" ||
         ui->surnameEdit->text() == "" ||
         ui->roomEdit->text() == "" ||
@@ -49,6 +55,7 @@ void AddNewStudentsDialog::on_buttonBox_accepted()
         ui->groupEdit->text() == "" ||
         ui->universityEdit->text() == "")
     {
+        //! Создание окна с сообщением об ошибке
         QMessageBox fillRows(this);
         fillRows.setIcon(QMessageBox::Warning);
         fillRows.setWindowTitle("Ошибка");
