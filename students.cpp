@@ -2,9 +2,9 @@
 
 Students::Students()
 {
-    beginInsertRows(QModelIndex(), // Индекс родителя, в список потомков которого добавляются строки
-                           0, // Номер первой добавляемой строки
-                           size()); // Номер последней добавляемой строки
+    beginInsertRows(QModelIndex(),
+                           0,
+                           size());
 
     load();
 
@@ -28,11 +28,8 @@ int Students::columnCount(const QModelIndex &parent) const
 
 QVariant Students::data(const QModelIndex &index, int role) const
 {
-    // Если требуется текст для отображения...
     if (role == Qt::DisplayRole)
     {
-        // Если столбец первый, возвращаем заголовок заметки, находящейся
-        // в соответствующей строке таблицы
         if (index.column() == 0)
             return mStudents[index.row()].getName();
         if (index.column() == 1)
@@ -48,19 +45,15 @@ QVariant Students::data(const QModelIndex &index, int role) const
         if (index.column() == 6)
             return mStudents[index.row()].getStrike();
     }
-    // Игнорируем все остальные запросы, возвращая пустой QVariant
     return QVariant();
 }
 
 QVariant Students::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    // Если требуется текст для отображения...
     if (role == Qt::DisplayRole)
     {
-        // Если речь о заголовках столбцов...
         if (orientation == Qt::Horizontal)
         {
-            // Если столбец первый, возвращаем заголовок
             if (section == 0)
                 return "  Имя  ";
             if (section == 1)
@@ -76,14 +69,11 @@ QVariant Students::headerData(int section, Qt::Orientation orientation, int role
             if (section == 6)
                 return "  Выговор  ";
         }
-        // Если речь о заголовках строк...
         else if (orientation == Qt::Vertical)
         {
-            // Возвращаем номер строки
             return QString::number(section);
         }
     }
-    // Игнорируем все остальные запросы, возвращая пустой QVariant
     return QVariant();
 }
 
@@ -99,16 +89,11 @@ int Students::size()
 
 void Students::erase(int idx)
 {
-    // В соответствии с требованиями Qt, уведомляем привязанные виды о том,
-    // что мы начинаем удалять строки из модели
-    beginRemoveRows(QModelIndex(), // Индекс родителя, из списка потомков которого удаляются строки
-                    idx, // Номер первой удаляемой строки
-                    idx // Номер последней удаляемой строки
+    beginRemoveRows(QModelIndex(),
+                    idx,
+                    idx
                     );
-    // Удаляем из вектора элемент с индексом idx
     mStudents.erase(std::next(mStudents.begin(), idx));
-    // В соответствии с требованиями Qt, уведомляем привязанные виды о том,
-    // что мы закончили удалять строки из модели
     endRemoveRows();
 }
 
@@ -149,16 +134,10 @@ void Students::load()
 
 void Students::add(Student student)
 {
-    // В соответствии с требованиями Qt, уведомляем привязанные виды о том,
-    // что мы начинаем вставлять строки в модель.
-    // Вставку производим в конец, поэтому номер новой строки будет равен size()
-    beginInsertRows(QModelIndex(), // Индекс родителя, в список потомков которого добавляются строки
-                           size(), // Номер первой добавляемой строки
-                           size()); // Номер последней добавляемой строки
-    // Вставляем заметку в конец вектора mNotes
+    beginInsertRows(QModelIndex(),
+                           size(),
+                           size());
     mStudents.push_back(student);
-    // В соответствии с требованиями Qt, уведомляем привязанные виды о том,
-    // что мы закончили вставлять строки в модель.
     endInsertRows();
 }
 

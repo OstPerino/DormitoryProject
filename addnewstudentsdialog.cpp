@@ -1,11 +1,21 @@
 #include "addnewstudentsdialog.h"
 #include "ui_addnewstudentsdialog.h"
 
+#include <QRegExpValidator>
+
+#define NAME_SURNAME_RX "^\s*[A-ZА-Я][a-zа-я]+('[a-zа-я]+|-[A-ZА-Я][a-zа-я]+)?\s*$"
+
 AddNewStudentsDialog::AddNewStudentsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddNewStudentsDialog)
 {
     ui->setupUi(this);
+
+    QRegExp rxName(NAME_SURNAME_RX);
+    QRegExpValidator *nameValidator = new QRegExpValidator(rxName, this);
+
+    ui->nameEdit->setValidator(nameValidator);
+    ui->surnameEdit->setValidator(nameValidator);
 }
 
 AddNewStudentsDialog::~AddNewStudentsDialog()

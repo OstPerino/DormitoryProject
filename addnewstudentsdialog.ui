@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>502</width>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>20</y>
+     <x>400</x>
+     <y>80</y>
      <width>81</width>
      <height>241</height>
     </rect>
@@ -32,10 +32,10 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>50</y>
-     <width>261</width>
-     <height>201</height>
+     <x>20</x>
+     <y>80</y>
+     <width>351</width>
+     <height>241</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -104,11 +104,17 @@
   <widget class="QLabel" name="titleLabel">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>20</y>
-     <width>101</width>
-     <height>16</height>
+     <x>140</x>
+     <y>30</y>
+     <width>251</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#titleLabel {
+	font-weight: bold;
+	font-size: 24px;
+}</string>
    </property>
    <property name="text">
     <string>Заселить студента</string>

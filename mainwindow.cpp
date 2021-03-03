@@ -10,18 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->studentsTable->setModel(&mStudents);
 
-    //this->accountDialog = accountDialog;
-
-    this->setFixedSize(946, 406);
+    //this->setFixedSize(990, 446);
 
     this->setWindowTitle("Общежитие");
 
-    //parent->hide();
-
-    //int res = accountDialog->exec();
-
-    //if (res == QDialog::Accepted)
-        //this->show();
 }
 
 MainWindow::~MainWindow()
