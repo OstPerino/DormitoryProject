@@ -3,7 +3,8 @@
 
 #include <QRegExpValidator>
 
-#define NAME_SURNAME_RX "^\s*[A-ZА-Я][a-zа-я]+('[a-zа-я]+|-[A-ZА-Я][a-zа-я]+)?\s*$"
+#define NAME_SURNAME_RX "^[А-Я][а-я]+$"
+#define ROOM_RX "^\\w{5,20}$"
 
 AddNewStudentsDialog::AddNewStudentsDialog(QWidget *parent) :
     QDialog(parent),
@@ -12,10 +13,14 @@ AddNewStudentsDialog::AddNewStudentsDialog(QWidget *parent) :
     ui->setupUi(this);
 
     QRegExp rxName(NAME_SURNAME_RX);
+    QRegExp rxRoom(ROOM_RX);
+
     QRegExpValidator *nameValidator = new QRegExpValidator(rxName, this);
+    QRegExpValidator *roomValidator = new QRegExpValidator(rxRoom, this);
 
     ui->nameEdit->setValidator(nameValidator);
     ui->surnameEdit->setValidator(nameValidator);
+    ui->roomEdit->setValidator(roomValidator);
 }
 
 AddNewStudentsDialog::~AddNewStudentsDialog()
