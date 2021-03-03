@@ -17,9 +17,10 @@ public:
     ~AccountDialog();
 
 private slots:
-    void on_buttonBox_accepted();
 
-    void on_buttonBox_rejected();
+    void on_enter_clicked();
+
+    void on_cancel_clicked();
 
 private:
     Ui::AccountDialog *ui;

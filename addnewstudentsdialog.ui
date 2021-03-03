@@ -115,6 +115,14 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>surnameEdit</tabstop>
+  <tabstop>roomEdit</tabstop>
+  <tabstop>groupEdit</tabstop>
+  <tabstop>universityEdit</tabstop>
+  <tabstop>birthEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

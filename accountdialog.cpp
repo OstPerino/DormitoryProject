@@ -6,14 +6,14 @@ AccountDialog::AccountDialog(QWidget *parent) :
     ui(new Ui::AccountDialog)
 {
     ui->setupUi(this);
+
 }
 
 AccountDialog::~AccountDialog()
 {
     delete ui;
 }
-
-void AccountDialog::on_buttonBox_accepted()
+void AccountDialog::on_enter_clicked()
 {
     QMessageBox *warning = new QMessageBox();
 
@@ -23,7 +23,9 @@ void AccountDialog::on_buttonBox_accepted()
     warning->addButton(QMessageBox::Ok);
 
     if (ui->loginEdit->text() == "Admin" && ui->passwordEdit->text() == "12345")
+    {
         accept();
+    }
     else
     {
         warning->exec();
@@ -31,7 +33,7 @@ void AccountDialog::on_buttonBox_accepted()
     }
 }
 
-void AccountDialog::on_buttonBox_rejected()
+void AccountDialog::on_cancel_clicked()
 {
     reject();
 }
