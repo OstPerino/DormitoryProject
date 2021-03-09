@@ -62,6 +62,7 @@ void AddNewStudentsDialog::on_buttonBox_accepted()
         fillRows.setText(tr("Какое-либо поле не заполнено!"));
         fillRows.setStandardButtons(QMessageBox::Discard);
         fillRows.exec();
+        reject();
     }
     else
         accept();
