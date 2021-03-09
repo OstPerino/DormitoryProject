@@ -53,69 +53,87 @@ void MainWindow::on_addStudent_clicked()
 
 void MainWindow::on_deleteStudent_clicked()
 {
-    //! Сообщение предупреждение об удалении студента
-    int ask = QMessageBox::question(this,
-                                      QString("Warning"),
-                                      QString("Вы действительно хотите выселить студента?"),
-                                      QMessageBox::Yes | QMessageBox::No);
-    if (ask == QMessageBox::Yes)
+    if (!ui->studentsTable->selectionModel()->isSelected(ui->studentsTable->currentIndex()))
     {
-        std::set<int> rows;
+        QMessageBox *ask = new QMessageBox();
+        ask->setWindowTitle("Warning");
+        ask->setText("Выберите студента перед совершением операции!");
+        ask->exec();
+    }
+    else {
+        //! Сообщение предупреждение об удалении студента
+        int ask = QMessageBox::question(this,
+                                          QString("Warning"),
+                                          QString("Вы действительно хотите выселить студента?"),
+                                          QMessageBox::Yes | QMessageBox::No);
+        if (ask == QMessageBox::Yes)
         {
-            //! Вычленение индекса студента
-            QModelIndexList idc = ui->studentsTable->selectionModel()->selectedRows();
-
-            for (const auto &i : idc)
+            std::set<int> rows;
             {
-                rows.insert(i.row());
+                //! Вычленение индекса студента
+                QModelIndexList idc = ui->studentsTable->selectionModel()->selectedRows();
+
+                for (const auto &i : idc)
+                {
+                    rows.insert(i.row());
+                }
             }
-        }
-        //! Удаление по указателю
-        for (auto it = rows.rbegin(); it != rows.rend(); ++it){
-            mStudents.erase(*it);
+            //! Удаление по указателю
+            for (auto it = rows.rbegin(); it != rows.rend(); ++it){
+                mStudents.erase(*it);
+            }
         }
     }
 }
 
 void MainWindow::on_talkingTo_clicked()
 {
-    //! Предупреждение при выговоре
-    QMessageBox *message = new QMessageBox();
-    Student student;
-
-    message->setWindowTitle("Предупреждение");
-    message->setText("Вы уверены что вы хотите вынести выговор данному студенту?");
-    message->setIcon(QMessageBox::Warning);
-    message->addButton(QMessageBox::Yes);
-    message->addButton(QMessageBox::No);
-
-    int res = message->exec();
-
-    //! Создание буферного студента, которуму будет
-    //! выдан выговор, а также замена его местами
-    //! и удаление прежнего, для изменения параметра
-    //! mStrikes
-    if (res == QMessageBox::Yes)
+    if (!ui->studentsTable->selectionModel()->isSelected(ui->studentsTable->currentIndex()))
     {
-        QModelIndex index = ui->studentsTable->currentIndex();
-        int newStrike = mStudents[index.row()].getStrike();
-        newStrike++;
+        QMessageBox *ask = new QMessageBox();
+        ask->setWindowTitle("Warning");
+        ask->setText("Выберите студента перед совершением операции!");
+        ask->exec();
+    }
+    else {
+        //! Предупреждение при выговоре
+        QMessageBox *message = new QMessageBox();
+        Student student;
 
-        student = mStudents[index.row()];
-        student.setStrike(newStrike);
+        message->setWindowTitle("Предупреждение");
+        message->setText("Вы уверены что вы хотите вынести выговор данному студенту?");
+        message->setIcon(QMessageBox::Warning);
+        message->addButton(QMessageBox::Yes);
+        message->addButton(QMessageBox::No);
 
-        mStudents.erase(index.row());
+        int res = message->exec();
 
-        if (student.getStrike() >= 3)
+        //! Создание буферного студента, которуму будет
+        //! выдан выговор, а также замена его местами
+        //! и удаление прежнего, для изменения параметра
+        //! mStrikes
+        if (res == QMessageBox::Yes)
         {
-            QMessageBox *fired = new QMessageBox();
-            fired->setWindowTitle("Информация");
-            fired->setText("Студент имеет максимальное количество выговор. Студент выселен");
-            fired->setIcon(QMessageBox::Information);
-            fired->addButton(QMessageBox::Yes);
-            fired->exec();
+            QModelIndex index = ui->studentsTable->currentIndex();
+            int newStrike = mStudents[index.row()].getStrike();
+            newStrike++;
+
+            student = mStudents[index.row()];
+            student.setStrike(newStrike);
+
+            mStudents.erase(index.row());
+
+            if (student.getStrike() >= 3)
+            {
+                QMessageBox *fired = new QMessageBox();
+                fired->setWindowTitle("Информация");
+                fired->setText("Студент имеет максимальное количество выговор. Студент выселен");
+                fired->setIcon(QMessageBox::Information);
+                fired->addButton(QMessageBox::Yes);
+                fired->exec();
+            }
+            else
+                mStudents.addInPose(student, index.row());
         }
-        else
-            mStudents.addInPose(student, index.row());
     }
 }
